@@ -1,6 +1,8 @@
 package jp.gesource.qrcodereaderforandroid
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
@@ -34,7 +36,16 @@ class MainActivity : AppCompatActivity() {
         barcodeView.initializeFromIntent(intent)
         barcodeView.decodeContinuous(callback)
         barcodeView.barcodeView.cameraSettings = CameraSettings()
+
+        QRCodeReader.setOnClickListener {onQRCodeReaderButtonTapped(it)}
     }
+
+    fun onQRCodeReaderButtonTapped (view: View?) {
+        val intentA = Intent(this, ResultActivity::class.java)
+        intentA.putExtra("Roselia", lastText)
+        startActivity(intentA)
+    }
+
 
     override fun onResume() {
         super.onResume()
